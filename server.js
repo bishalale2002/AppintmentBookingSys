@@ -1,15 +1,24 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const connectDB = require("./config/db"); // ✅ correct
+const connectDB = require("./config/db");
 
 const app = express();
 
-// connect database
+// DB
 connectDB();
 
+// 🔥 MUST BE HERE (before routes)
 app.use(cors());
 app.use(express.json());
+app.use((req, res, next) => {
+  console.log("METHOD:", req.method);
+  console.log("HEADERS:", req.headers["content-type"]);
+  console.log("BODY:", req.body);
+  next();
+});
+
+// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 
 app.get("/", (req, res) => {

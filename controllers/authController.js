@@ -9,7 +9,7 @@ const generateToken = require("../utils/generateToken");
  */
 exports.register = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password ,confirmPassword } = req.body;
 
     // Basic validation
     if (!name || !email || !password) {
@@ -21,7 +21,9 @@ exports.register = async (req, res) => {
         .status(400)
         .json({ message: "Password must be at least 6 characters" });
     }
-
+if (password!==confirmPassword){
+  return res.status(400).json({message:"Confirm Password Mismatch with password"})
+}
     // Check existing user
     const userExists = await User.findOne({ email });
     if (userExists) {
