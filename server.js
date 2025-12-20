@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 // Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/business", require("./routes/businessRoutes"));
-
+app.use("/api/appointment",required("./routes/appointmentRoute.js"));
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
