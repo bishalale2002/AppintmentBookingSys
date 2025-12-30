@@ -1,18 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const { businessOwner } = require("../controllers/businessController");
+const { businessOwner,deleteBusiness,updateBusinessSchedule } = require("../controllers/businessController");
 const adminProtect = require("../middleware/adminAuth.js");
 
 router.post("/register", adminProtect, businessOwner);
 router.put(
   "/business/:businessId/schedule",
-  adminAuth,
+ adminProtect,
   updateBusinessSchedule
 );
 
 router.delete(
   "/business/:businessId",
-  adminAuth,
+  adminProtect,
   deleteBusiness
 );
 
